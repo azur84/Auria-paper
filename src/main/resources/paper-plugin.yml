@@ -1,0 +1,14 @@
+name: Auria
+version: '1.0-SNAPSHOT'
+api-version: '1.21'
+load: STARTUP
+authors: [ Azur84 ]
+
+main: "fr.azur.auria.Auria"
+bootstrapper: "fr.azur.auria.AuriaBootstrap"
+
+mixins: [
+  "auria.mixins.json"
+]
+
+wideners: []
