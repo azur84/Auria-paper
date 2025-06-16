@@ -1,6 +1,7 @@
 package fr.azur.auria
 
 import fr.azur.auria.commands.SpeciesCommand
+import fr.azur.auria.commands.TestCommands
 import io.papermc.paper.plugin.bootstrap.BootstrapContext
 import io.papermc.paper.plugin.bootstrap.PluginBootstrap
 import io.papermc.paper.plugin.lifecycle.event.types.LifecycleEvents
@@ -19,6 +20,7 @@ class AuriaBootstrap : PluginBootstrap {
 
         lifecycleManager.registerEventHandler(LifecycleEvents.COMMANDS) { commands ->
             commands.registrar().register(SpeciesCommand.species.build())
+            commands.registrar().register(TestCommands.testCommand.build())
         }
 
         lifecycleManager.registerEventHandler(
