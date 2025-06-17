@@ -3,30 +3,37 @@ package fr.azur.auria.item
 import net.kyori.adventure.text.Component
 import net.kyori.adventure.text.format.NamedTextColor
 import net.kyori.adventure.text.format.TextColor
-import net.kyori.adventure.text.format.TextDecoration
 import org.bukkit.NamespacedKey
 import org.bukkit.inventory.ItemStack
 import org.bukkit.persistence.PersistentDataType
 
-enum class Rarity(val color: TextColor,val rarityName: Component) {
+enum class Rarity(val color: TextColor, val rarityName: Component) {
     Common(NamedTextColor.WHITE, Component.translatable("rarity.item.common")),
     Uncommon(NamedTextColor.GOLD, Component.translatable("rarity.item.uncommon")),
     Rare(NamedTextColor.AQUA, Component.translatable("rarity.item.rare")),
-    Epic(NamedTextColor.DARK_PURPLE, Component.translatable("rarity.item.epic")),
-    Legendary(NamedTextColor.DARK_RED, Component.translatable("rarity.item.legendary")),
-    Exotic(NamedTextColor.DARK_GREEN, Component.translatable("rarity.item.exotic"));
+    Epic(NamedTextColor.LIGHT_PURPLE, Component.translatable("rarity.item.epic")),
+    Legendary(NamedTextColor.RED, Component.translatable("rarity.item.legendary")),
+    Exotic(NamedTextColor.GREEN, Component.translatable("rarity.item.exotic"));
+
     companion object {
-        val rarityKey = NamespacedKey("auria","rarity")
-
-        fun getRarity(item: ItemStack) {
-
+        val rarityKey = NamespacedKey("auria", "rarity")
+        fun setRarity(item: ItemStack, rarity: Rarity) {
+            item.itemMeta = item.itemMeta.apply {
+                persistentDataContainer.apply {
+                    set(rarityKey, PersistentDataType.INTEGER, rarity.ordinal)
+                }
+                if (!hasItemName()) return
+                itemName(itemName().color(rarity.color))
+            }
         }
 
-        fun setRarity(item: ItemStack,rarity: Rarity) {
-            item.itemMeta = item.itemMeta.apply {
-                persistentDataContainer.set(rarityKey, PersistentDataType.INTEGER,rarity.ordinal)
-                if (hasItemName()) itemName(itemName().color(rarity.color).decorations(emptyMap())) else itemName(item.effectiveName().color(rarity.color).decorations(emptyMap()))
-            }
+        fun getRarity(item: ItemStack): Rarity {
+            val rarityOrdinal = item.persistentDataContainer.getOrDefault(
+                rarityKey,
+                PersistentDataType.INTEGER,
+                if (item.itemMeta.hasRarity()) item.itemMeta.rarity.ordinal else 0
+            )
+            return Rarity.entries[rarityOrdinal]
         }
     }
 }

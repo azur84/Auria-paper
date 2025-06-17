@@ -1,7 +1,7 @@
 package fr.azur.auria.commands
 
 import com.mojang.brigadier.Command
-import com.mojang.brigadier.builder.LiteralArgumentBuilder
+import com.mojang.brigadier.tree.LiteralCommandNode
 import fr.azur.auria.species.Specie
 import io.papermc.paper.command.brigadier.CommandSourceStack
 import io.papermc.paper.command.brigadier.Commands
@@ -10,8 +10,8 @@ import io.papermc.paper.command.brigadier.argument.resolvers.selector.PlayerSele
 import net.kyori.adventure.text.Component
 import org.bukkit.NamespacedKey
 
-object SpeciesCommand {
-    val species: LiteralArgumentBuilder<CommandSourceStack> = Commands.literal("species")
+fun speciesCommand(): LiteralCommandNode<CommandSourceStack> {
+    return Commands.literal("species")
         .then(
             Commands.literal("set")
                 .then(
@@ -56,5 +56,5 @@ object SpeciesCommand {
         .then(Commands.literal("gui").executes { ctx ->
             ctx.source.sender.sendMessage(Component.text("TODO"))
             Command.SINGLE_SUCCESS
-        })
+        }).build()
 }
