@@ -1,14 +1,12 @@
 package fr.azur.auria.commands
 
 import com.mojang.brigadier.Command
-import com.mojang.brigadier.tree.LiteralCommandNode
-import fr.azur.auria.item.LoreTools
-import io.papermc.paper.command.brigadier.CommandSourceStack
+import fr.azur.auria.items.data.LoreTools
 import io.papermc.paper.command.brigadier.Commands
 import org.bukkit.entity.Player
 
-fun fixItemCommand(): LiteralCommandNode<CommandSourceStack> {
-    return Commands.literal("fixitem")
+object FixItemCommand {
+    val command = Commands.literal("fix-items")
         .executes { ctx ->
             val executor = ctx.source.executor
             if (executor is Player) {
@@ -20,5 +18,5 @@ fun fixItemCommand(): LiteralCommandNode<CommandSourceStack> {
             }
             Command.SINGLE_SUCCESS
         }
-        .build()
+        .build()!!
 }

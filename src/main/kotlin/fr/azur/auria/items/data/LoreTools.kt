@@ -1,4 +1,4 @@
-package fr.azur.auria.item
+package fr.azur.auria.items.data
 
 import net.kyori.adventure.text.Component
 import org.bukkit.inventory.ItemStack

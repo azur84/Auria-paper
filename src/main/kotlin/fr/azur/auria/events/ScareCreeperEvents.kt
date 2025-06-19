@@ -10,7 +10,7 @@ import org.bukkit.event.Listener
 import org.bukkit.event.entity.EntityTargetLivingEntityEvent
 
 
-class ScareCreeperEvent : Listener {
+class ScareCreeperEvents : Listener {
 
     @EventHandler
     fun onEntityTarget(event: EntityTargetLivingEntityEvent) {

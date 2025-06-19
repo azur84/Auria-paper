@@ -1,8 +1,8 @@
 package fr.azur.auria
 
-import fr.azur.auria.commands.fixItemCommand
-import fr.azur.auria.commands.speciesCommand
-import fr.azur.auria.commands.testCommands
+import fr.azur.auria.commands.FixItemCommand
+import fr.azur.auria.commands.SpeciesCommand
+import fr.azur.auria.commands.TestCommand
 import io.papermc.paper.plugin.bootstrap.BootstrapContext
 import io.papermc.paper.plugin.bootstrap.PluginBootstrap
 import io.papermc.paper.plugin.lifecycle.event.types.LifecycleEvents
@@ -20,9 +20,9 @@ class AuriaBootstrap : PluginBootstrap {
         val lifecycleManager = context.lifecycleManager
 
         lifecycleManager.registerEventHandler(LifecycleEvents.COMMANDS) { commands ->
-            commands.registrar().register(speciesCommand())
-            commands.registrar().register(testCommands())
-            commands.registrar().register(fixItemCommand())
+            commands.registrar().register(FixItemCommand.command)
+            commands.registrar().register(SpeciesCommand.command)
+            commands.registrar().register(TestCommand.command)
         }
 
         lifecycleManager.registerEventHandler(

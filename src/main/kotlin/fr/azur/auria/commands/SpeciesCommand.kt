@@ -1,17 +1,17 @@
 package fr.azur.auria.commands
 
 import com.mojang.brigadier.Command
-import com.mojang.brigadier.tree.LiteralCommandNode
+import fr.azur.auria.menus.species.ChooseMenu
 import fr.azur.auria.species.Specie
-import io.papermc.paper.command.brigadier.CommandSourceStack
 import io.papermc.paper.command.brigadier.Commands
 import io.papermc.paper.command.brigadier.argument.ArgumentTypes
 import io.papermc.paper.command.brigadier.argument.resolvers.selector.PlayerSelectorArgumentResolver
 import net.kyori.adventure.text.Component
 import org.bukkit.NamespacedKey
+import org.bukkit.entity.Player
 
-fun speciesCommand(): LiteralCommandNode<CommandSourceStack> {
-    return Commands.literal("species")
+object SpeciesCommand {
+    val command = Commands.literal("species")
         .then(
             Commands.literal("set")
                 .then(
@@ -54,7 +54,10 @@ fun speciesCommand(): LiteralCommandNode<CommandSourceStack> {
                 )
         )
         .then(Commands.literal("gui").executes { ctx ->
-            ctx.source.sender.sendMessage(Component.text("TODO"))
+            val executor = ctx.source.executor
+            if (executor is Player) {
+                executor.openInventory(ChooseMenu().inventory)
+            }
             Command.SINGLE_SUCCESS
-        }).build()
+        }).build()!!
 }

@@ -1,4 +1,4 @@
-package fr.azur.auria.item
+package fr.azur.auria.items.data
 
 import net.kyori.adventure.text.Component
 import net.kyori.adventure.text.format.NamedTextColor
@@ -33,7 +33,7 @@ enum class Rarity(val color: TextColor, val rarityName: Component) {
                 PersistentDataType.INTEGER,
                 if (item.itemMeta.hasRarity()) item.itemMeta.rarity.ordinal else 0
             )
-            return Rarity.entries[rarityOrdinal]
+            return entries[rarityOrdinal]
         }
     }
 }
